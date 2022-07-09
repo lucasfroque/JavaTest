@@ -1,11 +1,9 @@
 package br.com.cd2.sigabem.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,17 +12,27 @@ import java.time.LocalDateTime;
 public class Frete implements Serializable {
     public static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @JsonIgnore
+    @Column(nullable = false)
     private String nomeDestinatario;
+
+    @Column(nullable = false, length = 8)
     private String cepOrigem;
+
+    @Column(nullable = false, length = 8)
     private String cepDestino;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataPrevistaEntrega;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonIgnore
     private LocalDateTime dataConsulta;
+
+    @JsonIgnore
+    @Column(nullable = false)
     private Double peso;
     private BigDecimal vlTotalFrete;
 

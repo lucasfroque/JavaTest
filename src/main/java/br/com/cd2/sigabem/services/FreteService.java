@@ -4,8 +4,10 @@ import br.com.cd2.sigabem.dto.FreteDto;
 import br.com.cd2.sigabem.models.Frete;
 import br.com.cd2.sigabem.repository.FreteRepository;
 import br.com.cd2.sigabem.response.Cep;
+import br.com.cd2.sigabem.services.exceptions.CepNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
@@ -41,13 +43,6 @@ public class FreteService {
 
     public List<Frete> findAll() {
         return repository.findAll();
-    }
-
-    public Frete findById(Long id) {
-        Optional<Frete> obj = repository.findById(id);
-        obj.get().setDataConsulta(LocalDateTime.now());
-        repository.save(obj.get());
-        return obj.orElseThrow(RuntimeException::new);
     }
 
 
@@ -97,6 +92,10 @@ public class FreteService {
     }
 
     public Cep getInfoCep(String cep){
-        return restTemplate.getForObject("https://viacep.com.br/ws/"+cep+"/json/", Cep.class);
+        try{
+            return restTemplate.getForObject("https://viacep.com.br/ws/"+cep+"/json/", Cep.class);
+        }catch (HttpClientErrorException e){
+            throw new CepNotFoundException(cep);
+        }
     }
 }

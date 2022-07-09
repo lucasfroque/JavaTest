@@ -2,6 +2,7 @@ package br.com.cd2.sigabem.controllers;
 
 import br.com.cd2.sigabem.dto.FreteDto;
 import br.com.cd2.sigabem.models.Frete;
+
 import br.com.cd2.sigabem.services.FreteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,4 @@ public class FreteController {
     public ResponseEntity<List<Frete>> findAll(){
         return ResponseEntity.ok().body(service.findAll());
     }
-
 }
