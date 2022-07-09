@@ -32,7 +32,7 @@ public class FreteService {
         frete.setVlTotalFrete(calcValorFrete(freteDto));
 
         frete.setDataConsulta(LocalDateTime.now());
-        frete.setDataPrevistaEntrega(LocalDateTime.now());
+        frete.setDataPrevistaEntrega(calcDataPrevista(freteDto));
 
         repository.save(frete);
 
@@ -45,6 +45,8 @@ public class FreteService {
 
     public Frete findById(Long id) {
         Optional<Frete> obj = repository.findById(id);
+        obj.get().setDataConsulta(LocalDateTime.now());
+        repository.save(obj.get());
         return obj.orElseThrow(RuntimeException::new);
     }
 
@@ -75,6 +77,23 @@ public class FreteService {
         }
 
         return 1.0;
+    }
+
+    public LocalDateTime calcDataPrevista(FreteDto freteDto){
+        Cep cepOrigem = getInfoCep(freteDto.getCepOrigem());
+        Cep cepDestino = getInfoCep(freteDto.getCepDestino());
+
+        LocalDateTime data = LocalDateTime.now();
+        if(Objects.equals(cepOrigem.getDdd(), cepDestino.getDdd())){
+
+            return data.plusDays(1);
+        }
+
+        if(Objects.equals(cepOrigem.getUf(), cepDestino.getUf())){
+            return data.plusDays(3);
+        }
+
+        return data.plusDays(10);
     }
 
     public Cep getInfoCep(String cep){

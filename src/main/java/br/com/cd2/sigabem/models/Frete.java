@@ -1,5 +1,7 @@
 package br.com.cd2.sigabem.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,7 +20,10 @@ public class Frete implements Serializable {
     private String nomeDestinatario;
     private String cepOrigem;
     private String cepDestino;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataPrevistaEntrega;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dataConsulta;
     private Double peso;
     private BigDecimal vlTotalFrete;
