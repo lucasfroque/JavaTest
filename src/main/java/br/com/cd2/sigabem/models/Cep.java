@@ -1,4 +1,4 @@
-package br.com.cd2.sigabem.response;
+package br.com.cd2.sigabem.models;
 
 public class Cep {
     private String cep;

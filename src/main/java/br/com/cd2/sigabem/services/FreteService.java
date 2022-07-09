@@ -3,7 +3,7 @@ package br.com.cd2.sigabem.services;
 import br.com.cd2.sigabem.dto.FreteDto;
 import br.com.cd2.sigabem.models.Frete;
 import br.com.cd2.sigabem.repository.FreteRepository;
-import br.com.cd2.sigabem.response.Cep;
+import br.com.cd2.sigabem.models.Cep;
 import br.com.cd2.sigabem.services.exceptions.CepNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +14,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 public class FreteService {
