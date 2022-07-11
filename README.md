@@ -53,7 +53,7 @@ Caso deseje usar outro nome altere em application.properties
 #### Consulta o frete e salva no banco de dados
 
 ```http
-  POST api/v1/users
+  POST /frete
 ```
 
 | Parâmetro   | Tipo       |
