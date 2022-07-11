@@ -1,42 +1,71 @@
 # Teste de seleção para vaga de Java
+Nesse projeto foi desenvolvido uma API para fazer consultas de frete.
 
-## Faça um fork desse projeto e siga as instruções a seguir utilizando esse projeto.
+## Informações 
+- [Tecnologias utilizadas](#-tecnologias-utilizadas)
+- [Rodando localmente](#rodando-localmente)
+- [Documentação da API](#documentação-da-api)
 
-# Pré-requisitos
+Documentação da API usando swagger: https://sigabem-apitest.herokuapp.com/swagger-ui/index.html#/
 
-Implementar apenas a API (Backend)
-Versão Java +8 (caso seja Java 8, verificar compatibilidade da sua IDE)
-Versão Spring Boot >= 2.4
-Banco de dados fica a seu critério (Sql, NoSql)
-Seu projeto deve obrigatoriamente ter as anotações: @Repository, @Entity e @Controller
-Documentação mínima da API (Swagger ou documento PDF)
+Endpoint: https://sigabem-apitest.herokuapp.com/frete
 
-# Objetivo
-Implementar para empresa de transporte de cargas SigaBem o endpoint para o cálculo do preço do frete:
+A API está em um servidor gratis, talvez demore um pouco para carregar da primeira vez.
 
-Você deve calcular o valor total do frete e a data prevista da entrega.
+Caso não consiga usar por esse servidor recomendo rodar localmente.
 
-Considerar regras para calcular o valor do frete:
- * CEPs com DDDs iguais tem 50% de desconto no valor do frete e entrega prevista de 1 dia
- * CEPs de estados iguais tem 75% de desconto no valor do frete e entrega prevista de 3 dias
- * CEPs de estados diferentes não deve ser aplicado o desconto no valor do frete e entrega prevista de 10 dias
- * O valor do frete é cobrado pelo peso da encomenda, o valor para cada KG é R$1,00
+## 🛠 Tecnologias utilizadas
 
-Seu input de entrada deve ser “peso”, “cepOrigem”, “cepDestino” e “nomeDestinatario“
+- Java 17
+- Maven
+- Springboot
+- Spring Data JPA
+- H2 Database
+- MySQL
+- Swagger
 
-Você utilizará a API gratuita de consulta de CEP abaixo: 
-Documentação da API: https://viacep.com.br/
-Exemplo do GET: https://viacep.com.br/ws/<CEP_A_CONSULTAR>/json/
+## Rodando localmente
 
-Endpoint pode ser público
-Response/Output deve possuir: “vlTotalFrete” e “dataPrevistaEntrega”, “cepOrigem” e “cepDestino”
-Deve ser persistido no banco os valores da cotação os valores consultados: “peso”, “cepOrigem”, “cepDestino”, “nomeDestinatario”, “vlTotalFrete”, “dataPrevistaEntrega” e “dataConsulta”
+### Clone o projeto
+
+```bash
+  git clone https://github.com/lucasfroque/JavaTest
+```
+### Instale as dependências
+
+```bash
+  mvn clean install
+```
+
+### Crie um banco de dados
+Crie um banco de dados com o nome "sigabem". 
+
+Caso deseje usar outro nome altere em application.properties
+
+### Inicie o servidor
+
+```bash
+  mvn spring-boot:run
+```
+
+## Documentação da API
+
+#### Consulta o frete e salva no banco de dados
+
+```http
+  POST api/v1/users
+```
+
+| Parâmetro   | Tipo       |
+| :---------- | :--------- | 
+| `nomeDestinatario`      | `string` | 
+| `cepOrigem`      | `string` | 
+| `cepDestino`      | `string` |
+| `peso`      | `double` | 
 
 
+#### Lista todos os frete consultados
 
-# Critérios de avaliação:
- * Implementação das regras de negócios para o cálculo do frete
- * Boas práticas de programação, arquitetura  e padrões de projetos
-
-# Entrega: 
- * Disponibilizar um link do repositório no GitHub e encaminhar para developer@cd2.com.br
+```http
+  GET /frete
+```

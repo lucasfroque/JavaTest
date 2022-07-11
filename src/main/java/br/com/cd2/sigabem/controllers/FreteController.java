@@ -27,7 +27,7 @@ public class FreteController {
     @Autowired
     private FreteService service;
 
-    @Operation(summary = "Consulta e calcula o frete e salva no banco de dados")
+    @Operation(summary = "Consulta o frete e salva no banco de dados")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "404", description = "Cep não encontrado", content = @Content(array = @ArraySchema(schema = @Schema(example = " ")))),
             @ApiResponse(responseCode = "400", description = "Requisição incorreta", content = @Content(array = @ArraySchema(schema = @Schema(example = " ")))),
